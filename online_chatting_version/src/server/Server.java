@@ -2,8 +2,8 @@ package server;
 
 import java.io.*;
 import java.net.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+
 
 /**
  * the hardest version.
@@ -20,18 +20,18 @@ public class Server {
 	private List<Client> clients = new ArrayList<Client>();
 	
 	/**
-	 * Íê³É½«Á¬½Ó¿Í»§¶Ë   ºÍ   ¶ÁÈ¡¿Í»§¶Ë·¢ËÍ¹ıÀ´µÄÊı¾İ·Ö¿ªµÄ¹¦ÄÜ¡£
-	 * ÕâÑù¾ÍÄÜ½â¾ö¶à¸ö¿Í»§¶Ë²»ÄÜÁ¬½ÓµÄÎÊÌâ¡£
-	 * 		ÎªÊ²Ã´¶¨Òå³Éº¯Êı£¿   ÊÇÒòÎªÖ÷·½·¨ÖĞÊµÏÖµÄÊ±ºò£¬ÊµÀı»¯Ïß³ÌÀà¶ÔÏóµÄÊ±ºò
-	 * 	»á³öÏÖÒì³£¡£
+	 * å®Œæˆå°†è¿æ¥å®¢æˆ·ç«¯   å’Œ   è¯»å–å®¢æˆ·ç«¯å‘é€è¿‡æ¥çš„æ•°æ®åˆ†å¼€çš„åŠŸèƒ½ã€‚
+	 * è¿™æ ·å°±èƒ½è§£å†³å¤šä¸ªå®¢æˆ·ç«¯ä¸èƒ½è¿æ¥çš„é—®é¢˜ã€‚
+	 * 		ä¸ºä»€ä¹ˆå®šä¹‰æˆå‡½æ•°ï¼Ÿ   æ˜¯å› ä¸ºä¸»æ–¹æ³•ä¸­å®ç°çš„æ—¶å€™ï¼Œå®ä¾‹åŒ–çº¿ç¨‹ç±»å¯¹è±¡çš„æ—¶å€™
+	 * 	ä¼šå‡ºç°å¼‚å¸¸ã€‚
 	 */
 	public void start() {
 		try {
-			//ÉèÖÃ·şÎñ¶ËµÄtcp-serverSocket  ½ÓÊÕ²¿·Ö¡£
+			//è®¾ç½®æœåŠ¡ç«¯çš„tcp-serverSocket  æ¥æ”¶éƒ¨åˆ†ã€‚
 			ss = new ServerSocket(8888);
 		}catch(BindException e) {
-			System.out.println("¶Ë¿ÚÊ¹ÓÃÖĞ¡£¡£¡£¡£");
-			System.out.println("ÈıÃëÖÓÖ®ºó½«ÍË³ö³ÌĞò¡£¡£¡£");
+			System.out.println("ç«¯å£ä½¿ç”¨ä¸­ã€‚ã€‚ã€‚ã€‚");
+			System.out.println("ä¸‰ç§’é’Ÿä¹‹åå°†é€€å‡ºç¨‹åºã€‚ã€‚ã€‚");
 			
 			try {
 				Thread.sleep(3000);
@@ -45,16 +45,16 @@ public class Server {
 			
 			ff.printStackTrace();
 		}
-		//ÉèÖÃ·şÎñ¶ËµÄtcp-serverSocket  ½ÓÊÕ²¿·Ö¡£
-		//Ñ­»·½ÓÊÕ£º 
+		//è®¾ç½®æœåŠ¡ç«¯çš„tcp-serverSocket  æ¥æ”¶éƒ¨åˆ†ã€‚
+		//å¾ªç¯æ¥æ”¶ï¼š 
 		try {
 			startFlag = true ;
 			while(startFlag) {
 				Socket sk = ss.accept();
 				linkNum1++ ;
 System.out.println("A Client connected.");				
-				//¶àÏß³Ì´¦ÀíÃ¿Ò»¸ö¿Í»§¶ËµÄ´«Êäµ½Êä³öÁ÷ÖĞµÄÊı¾İ
-				//Ê¹ÓÃÀàÊôĞÔÊäÈëÁ÷½øĞĞreadUTF(String str)µÄ×èÈûÊ½µÄ¶ÁÈ¡µÄ·½·¨£¬ÓÉÓÚÊÇ×èÈûÊ½µÄ£¬Ã¿Ò»¸öÏß³Ì²»»áÓ°ÏìÆäËûÏß³ÌµÄ¶ÁÈ¡µÄ¹¦ÄÜÊÇÊµÏÖ¡£
+				//å¤šçº¿ç¨‹å¤„ç†æ¯ä¸€ä¸ªå®¢æˆ·ç«¯çš„ä¼ è¾“åˆ°è¾“å‡ºæµä¸­çš„æ•°æ®
+				//ä½¿ç”¨ç±»å±æ€§è¾“å…¥æµè¿›è¡ŒreadUTF(String str)çš„é˜»å¡å¼çš„è¯»å–çš„æ–¹æ³•ï¼Œç”±äºæ˜¯é˜»å¡å¼çš„ï¼Œæ¯ä¸€ä¸ªçº¿ç¨‹ä¸ä¼šå½±å“å…¶ä»–çº¿ç¨‹çš„è¯»å–çš„åŠŸèƒ½æ˜¯å®ç°ã€‚
 				Client cl = new Client(sk);
 				clients.add(cl);
 				Thread th = new Thread(cl);
@@ -62,21 +62,21 @@ System.out.println("A Client connected.");
 				
 			}	
 		}catch(SocketException ff) {
-			System.out.println("Á¬½Ó×èÈû·½·¨Å×³öÒì³£¡£");
-			System.out.println("·şÎñ¶Ë³ÌĞòÒ²ÒÑ¾­¹Ø±Õ¡£");
+			System.out.println("è¿æ¥é˜»å¡æ–¹æ³•æŠ›å‡ºå¼‚å¸¸ã€‚");
+			System.out.println("æœåŠ¡ç«¯ç¨‹åºä¹Ÿå·²ç»å…³é—­ã€‚");
 		}	
 		 catch (IOException e) {
-			System.out.println("ÓĞioÒì³£");
+			System.out.println("æœ‰ioå¼‚å¸¸");
 		}
 	}
-	//ÄÚ²¿ÀàÊµÏÖÃ¿Ò»¿Í»§¶Ë×èÈûÊ½µÄ¶ÁÈ¡Êı¾İµÄ¹¦ÄÜ¡£²»»á¶ÔÆäËûµÄÏß³ÌÔì³ÉÓ°Ïì ¡£
+	//å†…éƒ¨ç±»å®ç°æ¯ä¸€å®¢æˆ·ç«¯é˜»å¡å¼çš„è¯»å–æ•°æ®çš„åŠŸèƒ½ã€‚ä¸ä¼šå¯¹å…¶ä»–çš„çº¿ç¨‹é€ æˆå½±å“ ã€‚
 	
 	@SuppressWarnings("unused")
 	private  class Client implements Runnable{
-		//ĞèÒªÉèÖÃÃ¿Ò»¸öµÄÏß³Ì¶ÔÏó £¬Ã»ÓĞ½ö½öÊ¹ÓÃÍâ²¿°ü×°ÀàÖĞÎ¨Ò»µÄÏß³ÌÊµÀı»¯µÄ¶ÔÏó¡£
+		//éœ€è¦è®¾ç½®æ¯ä¸€ä¸ªçš„çº¿ç¨‹å¯¹è±¡ ï¼Œæ²¡æœ‰ä»…ä»…ä½¿ç”¨å¤–éƒ¨åŒ…è£…ç±»ä¸­å”¯ä¸€çš„çº¿ç¨‹å®ä¾‹åŒ–çš„å¯¹è±¡ã€‚
 		private Socket s ;
 		
-		//ĞèÒªÔÙÉèÖÃÒ»¸öÑ­»·µÄÌõ¼ş£¬¿ØÖÆÑ­»·µÄ¶ÁÈ¡Êı¾İ¹¦ÄÜµÄ£¬ÅĞ¶ÏµÄÌõ¼ş¡£
+		//éœ€è¦å†è®¾ç½®ä¸€ä¸ªå¾ªç¯çš„æ¡ä»¶ï¼Œæ§åˆ¶å¾ªç¯çš„è¯»å–æ•°æ®åŠŸèƒ½çš„ï¼Œåˆ¤æ–­çš„æ¡ä»¶ã€‚
 		private boolean readFlag  =false ;
 		
 		private DataInputStream dis = null ;
@@ -89,7 +89,7 @@ System.out.println("A Client connected.");
 		}
 		
 		
-		//¹¹Ôì·½·¨Íê³ÉÊÇÊµÀı»¯¡£
+		//æ„é€ æ–¹æ³•å®Œæˆæ˜¯å®ä¾‹åŒ–ã€‚
 		@SuppressWarnings("unused")
 		public Client(Socket s) {
 			this.s = s ;
@@ -117,7 +117,7 @@ System.out.println("A Client connected.");
 		public void run() {
 			
 			try {
-				//²»ÄÜÃ¿Ò»´Î¶¼´´½¨ÊäÈëÁ÷£¬Ó¦¸Ã½«³õÊ¼»¯µÄÊÇÊµÏÖ£¬·ÅÔÚ¹¹Ôì·½·¨ÖĞÍê³É¡£ÕâÑùÖØÓÃµÄ¹¦ÄÜÊµÏÖ£¬¿ÉÒÔ½ÚÊ¡ÄÚ´æ¿Õ¼ä¡£
+				//ä¸èƒ½æ¯ä¸€æ¬¡éƒ½åˆ›å»ºè¾“å…¥æµï¼Œåº”è¯¥å°†åˆå§‹åŒ–çš„æ˜¯å®ç°ï¼Œæ”¾åœ¨æ„é€ æ–¹æ³•ä¸­å®Œæˆã€‚è¿™æ ·é‡ç”¨çš„åŠŸèƒ½å®ç°ï¼Œå¯ä»¥èŠ‚çœå†…å­˜ç©ºé—´ã€‚
 				
 //				dis = new DataInputStream(this.s.getInputStream());
 //				readFlag = true ;
@@ -139,12 +139,12 @@ System.out.println("A Client connected.");
 					try {
 						ss.close();
 					}catch(SocketException ff) {
-						System.out.println("Á¬½Ó×èÈû·½·¨Å×³öÒì³£¡£");
-						System.out.println("·şÎñ¶Ë³ÌĞòÒ²ÒÑ¾­¹Ø±Õ¡£");
+						System.out.println("è¿æ¥é˜»å¡æ–¹æ³•æŠ›å‡ºå¼‚å¸¸ã€‚");
+						System.out.println("æœåŠ¡ç«¯ç¨‹åºä¹Ÿå·²ç»å…³é—­ã€‚");
 					} 
 					catch (IOException e) {
 						// TODO Auto-generated catch block
-						System.out.println("ÓĞioÒì³£¡£");
+						System.out.println("æœ‰ioå¼‚å¸¸ã€‚");
 					}
 				}
 			}
